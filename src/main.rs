@@ -520,8 +520,8 @@ impl<'a> Character<'a> {
         let mut tmp = start;
         for &slot in BRUTE_FORCE_SLOTS {
             bf_prog[slot as usize] =
-                tmp % (self.database[slot as usize].len() + 1);
-            tmp /= self.database[slot as usize].len() + 1;
+                tmp % self.database[slot as usize].len();
+            tmp /= self.database[slot as usize].len();
         }
 
         'done: loop {
@@ -531,7 +531,7 @@ impl<'a> Character<'a> {
                 self.slots[slot as usize] =
                     self.database[slot as usize].get(bf_prog[slot as usize]);
                 number += bf_prog[slot as usize] * below;
-                below  *= self.database[slot as usize].len() + 1;
+                below  *= self.database[slot as usize].len();
             }
 
             assert!(number >= start);
@@ -600,6 +600,9 @@ impl<'a> Character<'a> {
             while volume > bh {
                 let bh = stats.best_vol_for_health[health].load(Ordering::Relaxed);
                 if stats.best_vol_for_health[health].compare_and_swap(bh, volume, Ordering::Relaxed) == bh {
+                    std::fs::write(format!("data/health_{}_volume_{}", health, volume),
+                        format!("Health:  {:5}\nMana:    {:5}\nHealing: {:5}\nVolume:  {:5}\n{}\n",
+                                health, mana, healing, volume, outfit())).unwrap();
                     break;
                 }
             }
@@ -617,7 +620,7 @@ impl<'a> Character<'a> {
             }
 
             let slot = BRUTE_FORCE_SLOTS[bf_slot] as usize;
-            if bf_prog[slot] == self.database[slot].len() {
+            if bf_prog[slot] == self.database[slot].len().checked_sub(1).unwrap() {
                 // Clear the prior status
                 for &prev in &BRUTE_FORCE_SLOTS[..bf_slot + 1] {
                     bf_prog[prev as usize] = 0;
@@ -630,7 +633,7 @@ impl<'a> Character<'a> {
                     }
 
                     let slot = BRUTE_FORCE_SLOTS[bf_slot] as usize;
-                    if bf_prog[slot] < self.database[slot].len() {
+                    if bf_prog[slot] < self.database[slot].len() - 1 {
                         bf_prog[slot] += 1;
                         break;
                     } else {
@@ -647,8 +650,11 @@ impl<'a> Character<'a> {
     fn brute_force(&'a mut self) {
         let mut total_combos = 1;
         for &slot in BRUTE_FORCE_SLOTS {
-            total_combos *= self.database[slot as usize].len() + 1;
+            print!("{:?} has {} items\n", slot, self.database[slot as usize].len());
+            total_combos *= self.database[slot as usize].len();
         }
+
+        print!("Total combos {}\n", total_combos);
 
         let stats: Arc<Statistics> = Arc::new(unsafe {
             core::mem::zeroed()
