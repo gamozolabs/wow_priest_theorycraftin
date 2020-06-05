@@ -1,3 +1,8 @@
+use std::fs::File;
+use std::io::Write;
+use std::sync::Arc;
+use std::sync::atomic::*;
+
 type Database = Vec<Vec<Item>>;
 
 const BASE_HEALTH:    i32 = 368;
@@ -5,7 +10,7 @@ const BASE_MANA:      i32 = 665;
 const BASE_STAMINA:   i32 = 32;
 const BASE_INTELLECT: i32 = 57;
 
-const NUM_WORKERS: usize = 4;
+const NUM_WORKERS: usize = 192;
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
 #[repr(usize)]
@@ -56,13 +61,20 @@ const BRUTE_FORCE_SLOTS: &[Slot] = &[
     Slot::OffHand,
     Slot::Wand,
 
-    /*
     Slot::HeadEnchant,
     Slot::ChestEnchant,
     Slot::WristEnchant,
     Slot::LegEnchant,
-    Slot::WeaponEnchant,*/
+    Slot::WeaponEnchant,
 ];
+
+struct Statistics {
+    max_mana: AtomicU32,
+    max_health: AtomicU32,
+    max_healing: AtomicU32,
+    max_volume: AtomicU32,
+    best_vol_for_health: [AtomicU32; 10000],
+}
 
 #[derive(Default, Clone, PartialEq, Eq, PartialOrd, Ord, Debug)]
 struct Item {
@@ -497,17 +509,13 @@ impl<'a> Character<'a> {
         }
     }
 
-    fn worker(&'a mut self, start: usize, iters_to_run: usize) {
+    fn worker(&'a mut self, wid: usize, start: usize, iters_to_run: usize, stats: Arc<Statistics>) {
         let mut iters = 0;
 
         // Allocate progress indicators which will track which id we're
         // trying for each slot
         let mut bf_prog = vec![0usize; Slot::MaxSlot as usize];
         let mut bf_slot = 0;
-        
-        let mut best_health  = 0;
-        let mut best_mana    = 0;
-        let mut best_healing = 0;
 
         let mut tmp = start;
         for &slot in BRUTE_FORCE_SLOTS {
@@ -528,19 +536,81 @@ impl<'a> Character<'a> {
 
             assert!(number >= start);
 
-            let health  = self.health();
-            let mana    = self.mana();
-            let healing = self.healing();
-            best_health = core::cmp::max(health, best_health);
-            best_mana = core::cmp::max(mana, best_mana);
-            best_healing = core::cmp::max(healing, best_healing);
+            let health  = self.health() as u32;
+            let mana    = self.mana() as u32;
+            let healing = self.healing() as u32;
+
+            let heal_per_heal_rank3 =
+                ((586 + 662) / 2) + (0.857 * healing as f64) as u32;
+            let volume = (mana / 255) * heal_per_heal_rank3;
+
+            let outfit = || {
+                let mut out = String::new();
+                for &slot in BRUTE_FORCE_SLOTS {
+                    out += &format!("{:?} {:#?}\n", slot, self.slots[slot as usize]);
+                }
+                out
+            };
+            
+            let bh = stats.max_health.load(Ordering::Relaxed);
+            while health > bh {
+                let bh = stats.max_health.load(Ordering::Relaxed);
+                if stats.max_health.compare_and_swap(bh, health, Ordering::Relaxed) == bh {
+                    std::fs::write(format!("data/max_health_{}", health),
+                        format!("Health:  {:5}\nMana:    {:5}\nHealing: {:5}\nVolume:  {:5}\n{}\n",
+                                health, mana, healing, volume, outfit())).unwrap();
+                    break;
+                }
+            }
+
+            let bh = stats.max_volume.load(Ordering::Relaxed);
+            while volume > bh {
+                let bh = stats.max_volume.load(Ordering::Relaxed);
+                if stats.max_volume.compare_and_swap(bh, volume, Ordering::Relaxed) == bh {
+                    std::fs::write(format!("data/max_volume_{}", volume),
+                        format!("Health:  {:5}\nMana:    {:5}\nHealing: {:5}\nVolume:  {:5}\n{}\n",
+                                health, mana, healing, volume, outfit())).unwrap();
+                    break;
+                }
+            }
+            
+            let bh = stats.max_mana.load(Ordering::Relaxed);
+            while mana > bh {
+                let bh = stats.max_mana.load(Ordering::Relaxed);
+                if stats.max_mana.compare_and_swap(bh, mana, Ordering::Relaxed) == bh {
+                    std::fs::write(format!("data/max_mana_{}", mana),
+                        format!("Health:  {:5}\nMana:    {:5}\nHealing: {:5}\nVolume:  {:5}\n{}\n",
+                                health, mana, healing, volume, outfit())).unwrap();
+                    break;
+                }
+            }
+            let bh = stats.max_healing.load(Ordering::Relaxed);
+            while healing > bh {
+                let bh = stats.max_healing.load(Ordering::Relaxed);
+                if stats.max_healing.compare_and_swap(bh, healing, Ordering::Relaxed) == bh {
+                    std::fs::write(format!("data/max_healing_{}", healing),
+                        format!("Health:  {:5}\nMana:    {:5}\nHealing: {:5}\nVolume:  {:5}\n{}\n",
+                                health, mana, healing, volume, outfit())).unwrap();
+                    break;
+                }
+            }
+            
+            let health = health as usize;
+            let bh = stats.best_vol_for_health[health].load(Ordering::Relaxed);
+            while volume > bh {
+                let bh = stats.best_vol_for_health[health].load(Ordering::Relaxed);
+                if stats.best_vol_for_health[health].compare_and_swap(bh, volume, Ordering::Relaxed) == bh {
+                    break;
+                }
+            }
+
             iters += 1;
 
             if iters >= iters_to_run {
                 break;
             }
 
-            if (iters & 0xffffff) == 0 {
+            if wid == 0 && (iters & 0xfffff) == 0 {
                 print!("Iters {:12.4} M of {:12.4} M\n",
                        iters as f64 / 1_000_000.,
                        iters_to_run as f64 / 1_000_000.);
@@ -572,10 +642,6 @@ impl<'a> Character<'a> {
                 bf_prog[slot] += 1;
             }
         }
-
-        print!("Best health  {:4}\n", best_health);
-        print!("Best mana    {:4}\n", best_mana);
-        print!("Best healing {:4}\n", best_healing);
     }
 
     fn brute_force(&'a mut self) {
@@ -584,14 +650,18 @@ impl<'a> Character<'a> {
             total_combos *= self.database[slot as usize].len() + 1;
         }
 
+        let stats: Arc<Statistics> = Arc::new(unsafe {
+            core::mem::zeroed()
+        });
+
         let mut workers = Vec::new();
         let mut tasking = total_combos;
         for wid in 0..NUM_WORKERS {
             let wt = core::cmp::min(tasking, (total_combos + 10000) / NUM_WORKERS);
-            print!("Start {}\n", total_combos - tasking);
+            let stats = stats.clone();
             workers.push(std::thread::spawn(move || {
                 let mut player = Character::new();
-                player.worker(total_combos - tasking, wt);
+                player.worker(wid, total_combos - tasking, wt, stats);
             }));
             
             tasking -= wt;
@@ -601,6 +671,11 @@ impl<'a> Character<'a> {
 
         for thr in workers {
             thr.join().unwrap();
+        }
+
+        let mut bvph = File::create("bvph.txt").unwrap();
+        for (health, best_volume) in stats.best_vol_for_health.iter().enumerate() {
+            write!(bvph, "{:5} {:6}\n", health, best_volume.load(Ordering::Relaxed)).unwrap();
         }
     }
 }
