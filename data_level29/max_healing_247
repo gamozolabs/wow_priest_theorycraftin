@@ -1,0 +1,277 @@
+Health:    728
+Mana:     1915
+Healing:   247
+Volume:   5845
+Head Some(
+    Item {
+        name: "Holy Shroud",
+        armor: 40,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 6,
+        agility: 0,
+        spell: 0,
+        healing: 33,
+        mana: 0,
+        unique: false,
+    },
+)
+Neck Some(
+    Item {
+        name: "Crystal Starfire Medallion",
+        armor: 0,
+        strength: 0,
+        stamina: 4,
+        intellect: 4,
+        spirit: 3,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Shoulder Some(
+    Item {
+        name: "Magician\'s Mantle",
+        armor: 32,
+        strength: 0,
+        stamina: 0,
+        intellect: 9,
+        spirit: 0,
+        agility: 0,
+        spell: 5,
+        healing: 5,
+        mana: 0,
+        unique: false,
+    },
+)
+Back Some(
+    Item {
+        name: "Archer\'s Cloak of Healing",
+        armor: 23,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 18,
+        mana: 0,
+        unique: false,
+    },
+)
+Chest Some(
+    Item {
+        name: "Mechbuilder\'s Overalls",
+        armor: 48,
+        strength: 0,
+        stamina: 5,
+        intellect: 15,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Wrist Some(
+    Item {
+        name: "Mindthrust Bracers",
+        armor: 17,
+        strength: 0,
+        stamina: -5,
+        intellect: 9,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Hands Some(
+    Item {
+        name: "Vital Handwraps of Healing",
+        armor: 29,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 24,
+        mana: 0,
+        unique: false,
+    },
+)
+Waist Some(
+    Item {
+        name: "Conjurer\'s Cinch of Healing",
+        armor: 26,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 24,
+        mana: 0,
+        unique: false,
+    },
+)
+Legs Some(
+    Item {
+        name: "Elder\'s Pants of Healing",
+        armor: 40,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 31,
+        mana: 0,
+        unique: false,
+    },
+)
+Feet Some(
+    Item {
+        name: "Acidic Walkers",
+        armor: 34,
+        strength: 0,
+        stamina: 0,
+        intellect: 8,
+        spirit: 4,
+        agility: 0,
+        spell: 5,
+        healing: 5,
+        mana: 0,
+        unique: false,
+    },
+)
+Ring1 Some(
+    Item {
+        name: "Nogg\'s Gold Ring",
+        armor: 0,
+        strength: 0,
+        stamina: 9,
+        intellect: 0,
+        spirit: 4,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: true,
+    },
+)
+Ring2 Some(
+    Item {
+        name: "Nogg\'s Gold Ring",
+        armor: 0,
+        strength: 0,
+        stamina: 9,
+        intellect: 0,
+        spirit: 4,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: true,
+    },
+)
+Weapon Some(
+    Item {
+        name: "Death Speaker Scepter",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 1,
+        agility: 0,
+        spell: 0,
+        healing: 11,
+        mana: 0,
+        unique: false,
+    },
+)
+OffHand Some(
+    Item {
+        name: "Orb of Mismantle",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 4,
+        agility: 0,
+        spell: 0,
+        healing: 9,
+        mana: 0,
+        unique: false,
+    },
+)
+Wand Some(
+    Item {
+        name: "Gravestone Scepter",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 1,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+HeadEnchant None
+ChestEnchant None
+WristEnchant Some(
+    Item {
+        name: "Enchant Bracer - Healing Power",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 24,
+        mana: 0,
+        unique: false,
+    },
+)
+LegEnchant Some(
+    Item {
+        name: "Arcanum of Focus",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 8,
+        healing: 8,
+        mana: 0,
+        unique: false,
+    },
+)
+WeaponEnchant Some(
+    Item {
+        name: "Enchant Weapon - Healing Power",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 55,
+        mana: 0,
+        unique: false,
+    },
+)
+

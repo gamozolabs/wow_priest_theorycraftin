@@ -1,0 +1,305 @@
+Health:    668
+Mana:     3800
+Healing:    29
+Volume:   9072
+Head Some(
+    Item {
+        name: "Elders Hat of Intellect",
+        armor: 37,
+        strength: 0,
+        stamina: 0,
+        intellect: 14,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Neck Some(
+    Item {
+        name: "Crystal Starfire Medallion",
+        armor: 0,
+        strength: 0,
+        stamina: 4,
+        intellect: 4,
+        spirit: 3,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Shoulder Some(
+    Item {
+        name: "Berylline Pads",
+        armor: 39,
+        strength: 0,
+        stamina: 5,
+        intellect: 10,
+        spirit: 6,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Back Some(
+    Item {
+        name: "Cloak of Rot",
+        armor: 22,
+        strength: 0,
+        stamina: -5,
+        intellect: 7,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Chest Some(
+    Item {
+        name: "Mechbuilder\'s Overalls",
+        armor: 48,
+        strength: 0,
+        stamina: 5,
+        intellect: 15,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Wrist Some(
+    Item {
+        name: "Mindthrust Bracers",
+        armor: 17,
+        strength: 0,
+        stamina: -5,
+        intellect: 9,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Hands Some(
+    Item {
+        name: "Hotshot Pilot\'s GLoves",
+        armor: 31,
+        strength: 0,
+        stamina: 5,
+        intellect: 8,
+        spirit: 5,
+        agility: 3,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Waist Some(
+    Item {
+        name: "Razzeric\'s Customized Seatbelt",
+        armor: 30,
+        strength: 0,
+        stamina: 1,
+        intellect: 12,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Legs Some(
+    Item {
+        name: "Elder\'s Pants of the Eagle",
+        armor: 40,
+        strength: 0,
+        stamina: 9,
+        intellect: 9,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Feet Some(
+    Item {
+        name: "Acidic Walkers",
+        armor: 34,
+        strength: 0,
+        stamina: 0,
+        intellect: 8,
+        spirit: 4,
+        agility: 0,
+        spell: 5,
+        healing: 5,
+        mana: 0,
+        unique: false,
+    },
+)
+Ring1 Some(
+    Item {
+        name: "Black Widow Band",
+        armor: 0,
+        strength: 0,
+        stamina: -5,
+        intellect: 7,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: true,
+    },
+)
+Ring2 Some(
+    Item {
+        name: "Black Widow Band",
+        armor: 0,
+        strength: 0,
+        stamina: -5,
+        intellect: 7,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: true,
+    },
+)
+Weapon Some(
+    Item {
+        name: "Skullbreaker",
+        armor: 0,
+        strength: 0,
+        stamina: 3,
+        intellect: 5,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+OffHand Some(
+    Item {
+        name: "Witch\'s Finger",
+        armor: 0,
+        strength: 0,
+        stamina: 4,
+        intellect: 7,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+Wand Some(
+    Item {
+        name: "Gravestone Scepter",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 1,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+HeadEnchant Some(
+    Item {
+        name: "Lesser Arcanum of Rumination",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 10,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+ChestEnchant Some(
+    Item {
+        name: "Enchant Chest - Major Mana",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 100,
+        unique: false,
+    },
+)
+WristEnchant Some(
+    Item {
+        name: "Enchant Bracer - Healing Power",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 0,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 24,
+        mana: 0,
+        unique: false,
+    },
+)
+LegEnchant Some(
+    Item {
+        name: "Lesser Arcanum of Rumination",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 10,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+WeaponEnchant Some(
+    Item {
+        name: "Enchant Weapon - Mighty Intellect",
+        armor: 0,
+        strength: 0,
+        stamina: 0,
+        intellect: 22,
+        spirit: 0,
+        agility: 0,
+        spell: 0,
+        healing: 0,
+        mana: 0,
+        unique: false,
+    },
+)
+
